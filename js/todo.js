@@ -18,20 +18,23 @@ $(function () {
         return uuid;
     }
 
+    var $checkB = $(".done-todo");
+
     // 添加list-item
     $(document)
         .on("click","#button",function () {
             var $input = $(".input-text");
             if($input!=null && $input.val() != ""){
-                //alert("ok");
                 var content ='<li id='+generateUUID()+' class="list-item">' +
                     '<input name="done-todo" type="checkbox" class="done-todo">' + $input.val()+ '</li>';
-                $("#list-box").prepend(content);
+                $("#list-box").append(content);
+                $input.val("");
             }else{
                 alert("list内容不能为空！");
                 $input.focus();
             }
-    })
+        })
+
         //取消勾选
         .on("click",".done-todo",function () {
             var t = $(this);
@@ -42,21 +45,39 @@ $(function () {
                 t.parent().removeClass("checked");
                 t.attr("checked",true);
             }
-    })
+        })
+
         //点击All
         .on("click","a[data-filter='all']",function () {
-            $(".done-todo").each(function () {
+            $checkB.each(function () {
+                $(this).parent().show();
+            })
+        })
+
+        //点击Active
+        .on("click","a[data-filter='active']",function () {
+            $checkB.each(function () {
+                $(this).parent().show();
+                if($(this).is(":checked")){
+                    $(this).parent().css("display","none");
+                }
+            })
+        })
+
+        //点击Complete
+        .on("click","a[data-filter='complete']",function () {
+            $checkB.each(function () {
+                $(this).parent().show();
                 if(!$(this).is(":checked")){
                     $(this).parent().css("display","none");
                 }
             })
-    })
+        })
+
         //添加编辑
         .on("click",".list-item",function () {
-            var t = $(this);
-            var content = t.text().trim();
-            t.find(".done-todo").attr("type","text").val(content);
-
-    })
-
+            if(!$(this).find(".done-todo").is(":checked")){ //未选的
+                $(this).attr("contentEditable","true").focus();
+            }
+        })
 });
