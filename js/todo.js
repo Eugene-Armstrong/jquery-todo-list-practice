@@ -56,28 +56,27 @@ $(function () {
 
         //点击Active
         .on("click","a[data-filter='active']",function () {
-            $checkB.each(function () {
-                $(this).parent().show();
-                if($(this).is(":checked")){
-                    $(this).parent().css("display","none");
+            $(".list-item").each(function () {
+                $(this).show();
+                if($(this).find(".done-todo").is(":checked")){
+                    $(this).css("display","none");
                 }
             })
         })
 
         //点击Complete
         .on("click","a[data-filter='complete']",function () {
-            $checkB.each(function () {
-                $(this).parent().show();
-                if(!$(this).is(":checked")){
-                    $(this).parent().css("display","none");
+            $(".list-item").each(function () {
+                $(this).show();
+                if(!$(this).find(".done-todo").is(":checked")){
+                    $(this).css("display","none");
                 }
             })
         })
 
         //添加编辑
         .on("click",".list-item",function () {
-            if(!$(this).find(".done-todo").is(":checked")){ //未选的
-                $(this).attr("contentEditable","true").focus();
-            }
+            $(this).attr("contentEditable","true").focus();
+
         })
 });
