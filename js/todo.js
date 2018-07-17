@@ -45,7 +45,7 @@ $(function () {
                 t.parent().removeClass("checked");
                 t.attr("checked",true);
             }
-            event.stopPropagation();
+            event.stopPropagation(); //阻止事件冒泡
         })
 
         //点击All
