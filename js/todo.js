@@ -36,7 +36,7 @@ $(function () {
         })
 
         //取消勾选
-        .on("click",".done-todo",function () {
+        .on("click",".done-todo",function (event) {
             var t = $(this);
             if(t.is(":checked")){
                 t.parent().addClass("checked");
@@ -45,6 +45,7 @@ $(function () {
                 t.parent().removeClass("checked");
                 t.attr("checked",true);
             }
+            event.stopPropagation();
         })
 
         //点击All
